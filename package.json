@@ -1,0 +1,59 @@
+{
+  "name": "nestjs-openapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "format": "prettier \"lib/**/*.ts\" --write",
+    "lint": "eslint 'lib/**/*.ts' --fix",
+    "test": "jest",
+    "test:dev": "jest --watch",
+    "test:e2e": "jest --config e2e/jest-e2e.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivamuno/nestjs-openapi.git"
+  },
+  "author": "Iván Muñoz Mozo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivamuno/nestjs-openapi/issues"
+  },
+  "homepage": "https://github.com/ivamuno/nestjs-openapi#readme",
+  "dependencies": {
+    "@nestjs/swagger": "^4.7.5"
+  },
+  "devDependencies": {
+    "@nestjs/common": "7.5.5",
+    "@nestjs/core": "^7.5.5",
+    "@nestjs/platform-express": "7.5.5",
+    "@types/jest": "26.0.16",
+    "@types/lodash": "4.14.165",
+    "@types/node": "11.15.0",
+    "@typescript-eslint/eslint-plugin": "4.9.0",
+    "@typescript-eslint/parser": "4.9.0",
+    "typescript": "4.1.2",
+    "eslint": "7.14.0",
+    "eslint-config-prettier": "6.15.0",
+    "express": "4.17.1",
+    "reflect-metadata": "0.1.13",
+    "ts-jest": "26.4.4",
+    "jest": "26.6.3",
+    "lint-staged": "10.5.2",
+    "prettier": "2.2.1",
+    "fs": "0.0.1-security",
+    "swagger-parser": "^10.0.2"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^6.8.0 || ^7.0.0",
+    "@nestjs/core": "^6.8.0 || ^7.0.0",
+    "reflect-metadata": "^0.1.12"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add -f"
+    ]
+  }
+}
