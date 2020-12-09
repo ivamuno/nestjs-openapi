@@ -1,4 +1,4 @@
-import { OpenApiProperty } from '../../../../lib';
+import { ApiProperty } from '@nestjs/swagger';
 
 export enum LettersEnum {
   A = 'A',
@@ -7,7 +7,7 @@ export enum LettersEnum {
 }
 
 export class PaginationQuery {
-  @OpenApiProperty({
+  @ApiProperty({
     minimum: 0,
     maximum: 10000,
     title: 'Page',
@@ -18,28 +18,28 @@ export class PaginationQuery {
   })
   page: number;
 
-  @OpenApiProperty({
+  @ApiProperty({
     name: '_sortBy'
   })
   sortBy: string[];
 
-  @OpenApiProperty()
+  @ApiProperty()
   limit: number;
 
-  @OpenApiProperty({
+  @ApiProperty({
     enum: LettersEnum,
     enumName: 'LettersEnum'
   })
   enum: LettersEnum;
 
-  @OpenApiProperty({
+  @ApiProperty({
     enum: LettersEnum,
     enumName: 'LettersEnum',
     isArray: true
   })
   enumArr: LettersEnum;
 
-  @OpenApiProperty()
+  @ApiProperty()
   beforeDate: Date;
 
   static _OPENAPI_METADATA_FACTORY() {

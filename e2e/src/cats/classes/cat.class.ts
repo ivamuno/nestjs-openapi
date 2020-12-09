@@ -1,35 +1,35 @@
-import { OpenApiProperty } from '../../../../lib';
+import { ApiProperty } from '@nestjs/swagger';
 import { LettersEnum } from '../dto/pagination-query.dto';
 
 export class Cat {
-  @OpenApiProperty({ example: 'Kitty', description: 'The name of the Cat' })
+  @ApiProperty({ example: 'Kitty', description: 'The name of the Cat' })
   name: string;
 
-  @OpenApiProperty({ example: 1, minimum: 0, description: 'The age of the Cat' })
+  @ApiProperty({ example: 1, minimum: 0, description: 'The age of the Cat' })
   age: number;
 
-  @OpenApiProperty({
+  @ApiProperty({
     example: 'Maine Coon',
     description: 'The breed of the Cat'
   })
   breed: string;
 
-  @OpenApiProperty({
+  @ApiProperty({
     name: '_tags',
     type: [String]
   })
   tags?: string[];
 
-  @OpenApiProperty()
+  @ApiProperty()
   createdAt: Date;
 
-  @OpenApiProperty({
+  @ApiProperty({
     type: String,
     isArray: true
   })
   urls?: string[];
 
-  @OpenApiProperty({
+  @ApiProperty({
     name: '_options',
     type: 'array',
     items: {
@@ -43,12 +43,12 @@ export class Cat {
   })
   options?: Record<string, any>[];
 
-  @OpenApiProperty({
+  @ApiProperty({
     enum: LettersEnum
   })
   enum: LettersEnum;
 
-  @OpenApiProperty({
+  @ApiProperty({
     enum: LettersEnum,
     isArray: true
   })

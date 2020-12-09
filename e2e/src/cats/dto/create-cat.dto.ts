@@ -1,34 +1,35 @@
-import { OpenApiExtraModels, OpenApiProperty } from '../../../../lib';
+import { ApiProperty } from '@nestjs/swagger';
+import { OpenApiExtraModels } from '../../../../lib';
 import { ExtraModel } from './extra-model.dto';
 import { LettersEnum } from './pagination-query.dto';
 import { TagDto } from './tag.dto';
 
 @OpenApiExtraModels(ExtraModel)
 export class CreateCatDto {
-  @OpenApiProperty()
+  @ApiProperty()
   readonly name: string;
 
-  @OpenApiProperty({ minimum: 1, maximum: 200 })
+  @ApiProperty({ minimum: 1, maximum: 200 })
   readonly age: number;
 
-  @OpenApiProperty({ name: '_breed', type: String })
+  @ApiProperty({ name: '_breed', type: String })
   readonly breed: string;
 
-  @OpenApiProperty({
+  @ApiProperty({
     type: [String]
   })
   readonly tags?: string[];
 
-  @OpenApiProperty()
+  @ApiProperty()
   createdAt: Date;
 
-  @OpenApiProperty({
+  @ApiProperty({
     type: 'string',
     isArray: true
   })
   readonly urls?: string[];
 
-  @OpenApiProperty({
+  @ApiProperty({
     type: 'array',
     items: {
       type: 'object',
@@ -41,20 +42,20 @@ export class CreateCatDto {
   })
   readonly options?: Record<string, any>[];
 
-  @OpenApiProperty({
+  @ApiProperty({
     enum: LettersEnum,
     enumName: 'LettersEnum'
   })
   readonly enum: LettersEnum;
 
-  @OpenApiProperty({
+  @ApiProperty({
     enum: LettersEnum,
     enumName: 'LettersEnum',
     isArray: true
   })
   readonly enumArr: LettersEnum;
 
-  @OpenApiProperty({ description: 'tag', required: false })
+  @ApiProperty({ description: 'tag', required: false })
   readonly tag: TagDto;
 
   nested: {

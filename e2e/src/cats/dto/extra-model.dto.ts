@@ -1,9 +1,9 @@
-import { OpenApiProperty } from '../../../../lib';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ExtraModel {
-  @OpenApiProperty()
+  @ApiProperty()
   readonly one: string;
 
-  @OpenApiProperty()
+  @ApiProperty()
   readonly two: number;
 }

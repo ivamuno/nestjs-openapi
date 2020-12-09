@@ -1,6 +1,6 @@
-import { OpenApiProperty } from '../../../../lib';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class TagDto {
-  @OpenApiProperty({ description: 'name' })
+  @ApiProperty({ description: 'name' })
   name: string;
 }

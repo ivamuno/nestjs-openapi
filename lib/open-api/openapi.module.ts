@@ -1,12 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { OpenAPIObject, SwaggerCustomOptions, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
-import {
-    ContentObject,
-    OperationObject,
-    PathItemObject,
-    RequestBodyObject,
-    ResponseObject,
-} from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { ContentObject, OperationObject, PathItemObject, RequestBodyObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 export class OpenApiModule extends SwaggerModule {
     static createDocument(app: INestApplication, config: Omit<OpenAPIObject, 'paths'>, options?: SwaggerDocumentOptions): OpenAPIObject {

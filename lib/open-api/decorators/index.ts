@@ -11,7 +11,6 @@ export * from './api-oauth2.decorator';
 export * from './api-operation.decorator';
 export * from './api-param.decorator';
 export * from './api-produces.decorator';
-export * from './api-property.decorator';
 export * from './api-query.decorator';
 export * from './api-response.decorator';
 export * from './api-security.decorator';
