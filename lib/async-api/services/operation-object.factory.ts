@@ -22,7 +22,7 @@ export class OperationObjectFactory {
         const asyncOperationObject = omit(operation, 'examples');
         let messageExamples = undefined;
         if (operation.message.examples) {
-            messageExamples = Object.values(operation.message.examples).map(e => e.value)
+            messageExamples = Object.values(operation.message.examples).map(e => e.value);
         }
 
         return {
@@ -31,9 +31,9 @@ export class OperationObjectFactory {
                 name: operation.message.name,
                 payload: {
                     $ref: getSchemaPath(name),
-                    examples: messageExamples
-                }
-            }
+                    examples: messageExamples,
+                },
+            },
         };
     }
 }

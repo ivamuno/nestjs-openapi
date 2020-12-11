@@ -25,7 +25,7 @@ export const exploreAsyncapiOperationMetadata = (
         subObject = { sub: { ...subMetadata, ...operationObjectFactory.create(subMetadata, ['application/json'], schemas) } };
     }
 
-    const result = { ...pubObject, ...subObject }
+    const result = { ...pubObject, ...subObject };
     return result;
 };
 

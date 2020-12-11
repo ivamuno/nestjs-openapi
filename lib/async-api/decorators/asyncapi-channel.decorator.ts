@@ -7,6 +7,7 @@ export declare const CHANNEL_DESCRIPTION = 'description';
 export interface AsyncChannelOptions {
     name: string;
     description?: string;
+    bindings?: Record<string, any>
 }
 
 export declare type Channel = object;

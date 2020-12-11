@@ -2,11 +2,10 @@ import { Logger } from '@nestjs/common';
 import {
     ExternalDocumentationObject,
     SecuritySchemeObject,
-    ServerVariableObject,
     TagObject,
 } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { isUndefined, negate, pickBy } from 'lodash';
-import { AsyncAPIObject } from './asyncapi.interfaces';
+import { AsyncAPIObject, AsyncSecuritySchemeObject, AsyncServerObject, AsyncServerVariableObject, SecurityObject } from './asyncapi.interfaces';
 
 export class AsyncApiDocumentBuilder {
     private readonly buildDocumentBase = (): Omit<AsyncAPIObject, 'channels'> => ({
@@ -55,8 +54,11 @@ export class AsyncApiDocumentBuilder {
         return this;
     }
 
-    public addServer(name: string, url: string, description?: string, variables?: Record<string, ServerVariableObject>): this {
-        this.document.servers[name] = { url, description, variables };
+    public addServer(
+        name: string,
+        server: AsyncServerObject
+    ): this {
+        this.document.servers[name] = server;
         return this;
     }
 
@@ -65,10 +67,8 @@ export class AsyncApiDocumentBuilder {
         return this;
     }
 
-    public setBasePath(path: string) {
-        this.logger.warn(
-            'The "setBasePath" method has been deprecated. Now, a global prefix is populated automatically. If you want to ignore it, take a look here: https://docs.nestjs.com/recipes/swagger#global-prefix. Alternatively, you can use "addServer" method to set up multiple different paths.'
-        );
+    public setDefaultContentType(contentType: string) {
+        this.document.defaultContentType = contentType;
         return this;
     }
 
@@ -86,7 +86,7 @@ export class AsyncApiDocumentBuilder {
         return this;
     }
 
-    public addSecurity(name: string, options: SecuritySchemeObject): this {
+    public addSecurity(name: string, options: AsyncSecuritySchemeObject): this {
         this.document.components.securitySchemes = {
             ...(this.document.components.securitySchemes || {}),
             [name]: options,

@@ -10,7 +10,22 @@ import { Cat } from './classes/cat.class';
 import { CreateCatDto } from './dto/create-cat.dto';
 
 @Injectable()
-@AsyncApiChannel({ name: 'Cats2Channel' })
+@AsyncApiChannel({
+  name: 'Cats2Channel',
+  bindings: {
+    'amqp': {
+      is: 'routingKey',
+      exchange: {
+        name: 'CRM-OpsFlow-Request',
+        type: 'topic',
+        durable: true,
+        autoDelete: false,
+        vhost: '/'
+      },
+      bindingVersion: '0.1.0'
+    }
+  }
+})
 export class Cats2Channel {
   constructor(private readonly catsService: CatsService) { }
 

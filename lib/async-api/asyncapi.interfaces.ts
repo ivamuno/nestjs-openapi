@@ -10,11 +10,12 @@ export interface AsyncAPIObject {
     asyncapi: string;
     id?: string;
     info: InfoObject;
-    servers?: Record<string, ServerObject>;
+    servers?: Record<string, AsyncServerObject>;
     channels: AsyncChannelsObject;
     components?: AyncComponentsObject;
     tags?: AsyncTagObject[];
     externalDocs?: ExternalDocumentationObject;
+    defaultContentType?: string;
 }
 
 export type AsyncChannelsObject = Record<string, AsyncChannelObject>;
@@ -27,15 +28,15 @@ export interface AsyncChannelObject {
 }
 
 export interface AsyncServerVariableObject extends ServerVariableObject {
-    examples: string[];
+    examples?: string[];
 }
 
 export interface AsyncServerObject extends Omit<ServerObject, 'variables'> {
     variables?: Record<string, AsyncServerVariableObject>;
     protocol: string;
     protocolVersion?: string;
-    security: SecurityObject[];
-    bindings: Record<string, any>;
+    security?: SecurityObject[];
+    bindings?: Record<string, any>;
 }
 
 export interface SecurityObject extends Record<string, string[]> {}
@@ -43,7 +44,7 @@ export interface SecurityObject extends Record<string, string[]> {}
 export interface AyncComponentsObject {
     schemas?: Record<string, SchemaObject>;
     messages?: Record<string, AsyncMessageObject>;
-    securitySchemes?: Record<string, SecuritySchemeObject>;
+    securitySchemes?: Record<string, AsyncSecuritySchemeObject>;
     parameters?: Record<string, ParameterObject>;
     correlationIds?: Record<string, AsyncCorrelationObject>;
     operationTraits?: Record<string, AsyncOperationTraitObject>;
@@ -105,7 +106,7 @@ export interface AsyncTagObject {
     externalDocs?: ExternalDocumentationObject;
 }
 
-export interface SecuritySchemeObject {
+export interface AsyncSecuritySchemeObject {
     type: SecuritySchemeType;
     description?: string;
     name?: string;
@@ -116,7 +117,16 @@ export interface SecuritySchemeObject {
     openIdConnectUrl?: string;
 }
 
-export type SecuritySchemeType = 'apiKey' | 'http' | 'oauth2' | 'openIdConnect';
+export declare type SecuritySchemeType =
+    | 'userPassword'
+    | 'apiKey'
+    | 'X509'
+    | 'symmetricEncryption'
+    | 'asymmetricEncryption'
+    | 'apiKey'
+    | 'http'
+    | 'oauth2'
+    | 'openIdConnect';
 
 export interface OAuthFlowsObject {
     implicit?: OAuthFlowObject;

@@ -4,14 +4,14 @@ import { createMixedDecorator } from '@nestjs/swagger/dist/decorators/helpers';
 import { DECORATORS } from './constants';
 
 export interface AsyncOperationOptions extends Omit<AsyncOperationObject, 'message'> {
-    message:{
-        name: string,
-        type: Type<unknown> | Function | [Function] | string,
-        examples?: Record<string, ExampleObject>
-    }
+    message: {
+        name: string;
+        type: Type<unknown> | Function | [Function] | string;
+        examples?: Record<string, ExampleObject>;
+    };
 }
 
-export function AsyncApiPub(options: AsyncOperationOptions): MethodDecorator & ClassDecorator {    
+export function AsyncApiPub(options: AsyncOperationOptions): MethodDecorator & ClassDecorator {
     const result = createMixedDecorator(DECORATORS.ASYNCAPI_PUB, options);
     return result;
 }
