@@ -1,6 +1,6 @@
 {
   "name": "nestjs-openapi",
-  "version": "1.0.0",
+  "version": "0.0.9",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/ivamuno/nestjs-openapi#readme",
   "dependencies": {
-    "@nestjs/swagger": "^4.7.5"
+    "@nestjs/swagger": "^4.7.5",
+    "express-handlebars": "^5.2.0"
   },
   "devDependencies": {
     "@nestjs/common": "7.5.5",

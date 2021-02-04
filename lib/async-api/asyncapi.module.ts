@@ -1,12 +1,12 @@
 import { INestApplication } from '@nestjs/common';
-import { loadPackage } from '@nestjs/common/utils/load-package.util';
 import { SwaggerDocumentOptions } from '@nestjs/swagger';
-import { validatePath } from '@nestjs/swagger/dist/utils/validate-path.util';
 
 import { AsyncAPIObject } from '.';
+import { RedocOptions } from '../redoc/interfaces';
+import { RedocModule } from '../redoc/redoc-module';
 import { AsyncapiScanner } from './asyncapi.scanner';
 
-export interface AsyncApiDocumentOptions extends SwaggerDocumentOptions {}
+export interface AsyncApiDocumentOptions extends SwaggerDocumentOptions { }
 
 export class AsyncApiModule {
     public static createDocument(
@@ -27,18 +27,7 @@ export class AsyncApiModule {
         };
     }
 
-    public static setup(path: string, app: INestApplication, document: AsyncAPIObject, options?: AsyncApiDocumentOptions) {
-        return this.setupExpress(path, app, document, options);
-    }
-
-    private static setupExpress(path: string, app: INestApplication, document: AsyncAPIObject, options?: AsyncApiDocumentOptions) {
-        const httpAdapter = app.getHttpAdapter();
-        const finalPath = validatePath(path);
-        const swaggerUi = loadPackage('swagger-ui-express', 'AsyncApiModule', () => require('swagger-ui-express'));
-        const swaggerHtml = swaggerUi.generateHTML(document, options);
-        app.use(finalPath, swaggerUi.serveFiles(document, options));
-
-        httpAdapter.get(finalPath, (req, res) => res.send(swaggerHtml));
-        httpAdapter.get(finalPath + '-json', (req, res) => res.json(document));
+    public static setup(path: string, app: INestApplication, document: AsyncAPIObject, options?: RedocOptions): void {
+        RedocModule.setup(path, app, document, options);
     }
 }

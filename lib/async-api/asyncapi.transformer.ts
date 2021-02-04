@@ -5,8 +5,11 @@ import { DenormalizedDoc } from './interfaces/denormalized-doc.interface';
 export class AsyncapiTransformer {
     public normalizeChannels(denormalizedDocs: DenormalizedDoc[]): Record<'channels', AsyncChannelsObject> {
         const flatChannels = denormalizedDocs.map((d: DenormalizedDoc) => {
-            const key = d.root.name;
+            const key = d.root.name;            
             const value = {
+                description: d.root.description,
+                bindings: d.root.bindings,
+                parameters: d.root.parameters,
                 subscribe: d.operations.sub,
                 publish: d.operations.pub,
             } as AsyncChannelObject;

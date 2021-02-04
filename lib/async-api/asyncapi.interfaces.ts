@@ -92,7 +92,7 @@ export interface AsyncMessageTraitObject {
     tags?: AsyncTagObject[];
     externalDocs?: ExternalDocumentationObject;
     bindings?: Record<string, any>;
-    examples?: any[];
+    examples?: ExamplesObject;
 }
 
 export interface AsyncCorrelationObject {
@@ -123,7 +123,6 @@ export declare type SecuritySchemeType =
     | 'X509'
     | 'symmetricEncryption'
     | 'asymmetricEncryption'
-    | 'apiKey'
     | 'http'
     | 'oauth2'
     | 'openIdConnect';

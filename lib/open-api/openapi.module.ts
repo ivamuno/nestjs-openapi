@@ -1,10 +1,12 @@
 import { INestApplication } from '@nestjs/common';
-import { OpenAPIObject, SwaggerCustomOptions, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
+import { OpenAPIObject, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
 import { ContentObject, OperationObject, PathItemObject, RequestBodyObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { RedocOptions } from '../redoc/interfaces';
+import { RedocModule } from '../redoc/redoc.module';
 
-export class OpenApiModule extends SwaggerModule {
-    static createDocument(app: INestApplication, config: Omit<OpenAPIObject, 'paths'>, options?: SwaggerDocumentOptions): OpenAPIObject {
-        var document = super.createDocument(app, config, options);
+export class OpenApiModule {
+    public static createDocument(app: INestApplication, config: Omit<OpenAPIObject, 'paths'>, options?: SwaggerDocumentOptions): OpenAPIObject {
+        var document = SwaggerModule.createDocument(app, config, options);
         Object.keys(document.paths).forEach(pathKey => {
             let path: PathItemObject = document.paths[pathKey];
             Object.keys(path).forEach(operationKey => {
@@ -19,8 +21,8 @@ export class OpenApiModule extends SwaggerModule {
         return document;
     }
 
-    static setup(path: string, app: INestApplication, document: OpenAPIObject, options?: SwaggerCustomOptions): void {
-        super.setup(path, app, document, options);
+    public static setup(path: string, app: INestApplication, document: OpenAPIObject, options?: RedocOptions): void {
+        RedocModule.setup(path, app, document, options);
     }
 
     private static mapExamples(metadata: any, target: any) {

@@ -56,9 +56,10 @@ export class AsyncapiScanner {
         globalPrefix?: string,
         operationIdFactory?: (controllerKey: string, methodKey: string) => string
     ): Array<DenormalizedDoc> {
-        const denormalizedArray = [...components.values()].map(comp =>
+        const denormalizedArray = [...components.values()].map(comp => 
             this.explorer.exploreChannel(comp, modulePath, globalPrefix, operationIdFactory)
         );
+        
         return flatten(denormalizedArray) as any;
     }
 
