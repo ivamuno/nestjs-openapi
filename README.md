@@ -8,16 +8,16 @@ Available running
 npm start:demo
 ```
 
-It start a Nest application exposing:
+It starts a Nest application exposing:
 - OpenAPI example under http://localhost:3000/openapi
 - AsyncAPI example under http://localhost:3000/asyncapi
 
 ## Features
 - Extended OpenAPI decorators to allow examples.
-- New AsyncAPI decoratores: AsyncApiChannel, AsyncApiSub, AsyncApiPub.
-- Support examples and discrimators for AsyncAPI as OpenAPI does (it means, the decoratos are not 100% compatible with AsyncAPI spec).
+- New AsyncAPI decorators: AsyncApiChannel, AsyncApiSub, AsyncApiPub.
+- Support examples and discriminators for AsyncAPI as OpenAPI does (it means, the decorators are not 100% compatible with AsyncAPI spec).
 - Redoc integration for OpenAPI and AsyncAPI.
-- AMQP and Kafka are support only for AsyncAPI.
+- AMQP and Kafka are supported only for AsyncAPI.
 
 ## Roadmap
 - Header and Traits support.
