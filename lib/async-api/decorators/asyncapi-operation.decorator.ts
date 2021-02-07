@@ -1,13 +1,16 @@
 import { Type } from '@nestjs/common';
-import { AsyncOperationObject, ExampleObject } from '..';
+import { AsyncOperationObject, DiscriminatorObject, ExampleObject } from '..';
 import { createMixedDecorator } from '@nestjs/swagger/dist/decorators/helpers';
 import { DECORATORS } from './constants';
 
 export interface AsyncOperationOptions extends Omit<AsyncOperationObject, 'message'> {
     message: {
         name: string;
-        type: Type<unknown> | Function | [Function] | string;
-        examples?: Record<string, ExampleObject>;
+        payload: {
+            type: Type<unknown> | Function | [Function] | string;
+            discriminator?: DiscriminatorObject;
+            examples?: Record<string, ExampleObject>;
+        }
     };
 }
 

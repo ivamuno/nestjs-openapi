@@ -6,6 +6,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { OpenApiDocumentBuilder, OpenApiModule } from '../lib';
+import { BritishShorthairCatDto, MaineCoonDto } from './src/cats/dto/bread-cat.dto';
 
 describe('Validate OpenAPI schema', () => {
   let document: OpenAPIObject;
@@ -30,11 +31,12 @@ describe('Validate OpenAPI schema', () => {
       .addSecurityRequirements('bearer')
       .build();
 
-    document = OpenApiModule.createDocument(app, options);
+    const extraModels = [MaineCoonDto, BritishShorthairCatDto];
+    document = OpenApiModule.createDocument(app, options, { extraModels });
   });
 
   test('should produce a valid OpenAPI 3.0 schema', async () => {
-    const file: string = readFileSync(join(__dirname, 'api-spec.json'), 'utf8');
+    const file: string = readFileSync(join(__dirname, 'open-api-spec.json'), 'utf8');
     const expectation = JSON.parse(file) as OpenAPIObject;
 
     try {
@@ -47,7 +49,7 @@ describe('Validate OpenAPI schema', () => {
       expect(document.security).toStrictEqual(expectation.security);
       expect(document.paths).toStrictEqual(expectation.paths);
     } catch (err) {
-      console.log(document);
+      console.log(JSON.stringify(document));
       expect(err).toBeUndefined();
     }
   });

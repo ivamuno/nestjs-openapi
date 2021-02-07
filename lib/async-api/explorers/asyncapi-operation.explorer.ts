@@ -1,13 +1,13 @@
 import { Type } from '@nestjs/common';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
-import { AsyncOperationObject, AsyncOperationOptions, DECORATORS } from '..';
+import { AsyncOperationOptions, DECORATORS } from '..';
 import { OperationObjectFactory } from '../services/operation-object.factory';
 
 const operationObjectFactory = new OperationObjectFactory();
 
 export const exploreAsyncapiOperationMetadata = (
     schemas: SchemaObject[],
-    schemaRefsStack: [],
+    _schemaRefsStack: [],
     instance: object,
     prototype: Type<unknown>,
     method: object
@@ -29,11 +29,11 @@ export const exploreAsyncapiOperationMetadata = (
     return result;
 };
 
-export const exploreAsyncapiPubMetadata = (instance: object, prototype: Type<unknown>, method: object) => {
+export const exploreAsyncapiPubMetadata = (_instance: object, _prototype: Type<unknown>, method: object) => {
     const result = Reflect.getMetadata(DECORATORS.ASYNCAPI_PUB, method);
     return result;
 };
-export const exploreAsyncapiSubMetadata = (instance: object, prototype: Type<unknown>, method: object) => {
+export const exploreAsyncapiSubMetadata = (_instance: object, _prototype: Type<unknown>, method: object) => {
     const result = Reflect.getMetadata(DECORATORS.ASYNCAPI_SUB, method);
     return result;
 };

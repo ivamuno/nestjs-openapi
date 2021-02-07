@@ -1,5 +1,5 @@
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
-import { OpenApiExtraModels } from '../../../../lib';
+import { OpenApiExtraModels } from '@ivamuno/nestjs-openapi';
 import { BreadCoonDto, BritishShorthairCatDto, MaineCoonDto } from './bread-cat.dto';
 import { ExtraModel } from './extra-model.dto';
 import { LettersEnum } from './pagination-query.dto';

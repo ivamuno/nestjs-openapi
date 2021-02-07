@@ -22,7 +22,8 @@ export class OpenApiModule {
     }
 
     public static setup(path: string, app: INestApplication, document: OpenAPIObject, options?: RedocOptions): void {
-        RedocModule.setup(path, app, document, options);
+        const defaultOptions = { docName: 'openapi', title: 'OpenApi documentation' };
+        RedocModule.setup(path, app, document, { ...defaultOptions, ...options });
     }
 
     private static mapExamples(metadata: any, target: any) {

@@ -3,7 +3,7 @@ import { SwaggerDocumentOptions } from '@nestjs/swagger';
 
 import { AsyncAPIObject } from '.';
 import { RedocOptions } from '../redoc/interfaces';
-import { RedocModule } from '../redoc/redoc-module';
+import { RedocModule } from '../redoc/redoc.module';
 import { AsyncapiScanner } from './asyncapi.scanner';
 
 export interface AsyncApiDocumentOptions extends SwaggerDocumentOptions { }
@@ -28,6 +28,7 @@ export class AsyncApiModule {
     }
 
     public static setup(path: string, app: INestApplication, document: AsyncAPIObject, options?: RedocOptions): void {
-        RedocModule.setup(path, app, document, options);
+        const defaultOptions = { docName: 'asyncapi', title: 'AsyncApi documentation' };
+        RedocModule.setup(path, app, document, { ...defaultOptions, ...options });
     }
 }

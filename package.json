@@ -1,12 +1,14 @@
 {
-  "name": "nestjs-openapi",
-  "version": "0.0.9",
+  "name": "@ivamuno/nestjs-openapi",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "format": "prettier \"lib/**/*.ts\" --write",
-    "lint": "eslint 'lib/**/*.ts' --fix",
+    "start:demo": "cd demo && nest start",
+    "build": "tsc -p tsconfig.json && cp package.json ./dist",
+    "publish": "npm run build && npm publish dist --access public",
+    "format": "prettier --write \"{demo,lib,test}/**/*.ts\"",
+    "lint": "eslint \"{demo,lib,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:dev": "jest --watch",
     "test:e2e": "jest --config e2e/jest-e2e.json"
@@ -23,6 +25,7 @@
   "homepage": "https://github.com/ivamuno/nestjs-openapi#readme",
   "dependencies": {
     "@nestjs/swagger": "^4.7.5",
+    "express-basic-auth": "^1.2.0",
     "express-handlebars": "^5.2.0"
   },
   "devDependencies": {

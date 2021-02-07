@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import {
   OpenApiBearerAuth, OpenApiConsumes, OpenApiExtension, OpenApiHeader, OpenApiOperation, OpenApiQuery, OpenApiResponse, OpenApiSecurity, OpenApiTags
-} from '../../../lib';
+} from '@ivamuno/nestjs-openapi';
 
 import { CatsService } from './cats.service';
 import { Cat } from './classes/cat.class';

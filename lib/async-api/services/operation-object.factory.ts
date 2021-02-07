@@ -14,16 +14,21 @@ export class OperationObjectFactory {
 
     create(operation: AsyncOperationOptions, produces: string[], schemas: SchemaObject[]): AsyncOperationObject {
         const { message } = operation as AsyncOperationOptions;
-        const name = this.schemaObjectFactory.exploreModelSchema(message.type as Function, schemas);
+        const messagePayloadType = message.payload.type as Function;
+        const name = this.schemaObjectFactory.exploreModelSchema(messagePayloadType, schemas);
+        const discriminator = operation.message.payload.discriminator;
+        if (operation.message.payload.discriminator) {
+            var schema = schemas.find(s => s[name] !== undefined);
+            if (schema) {
+                schema[name].discriminator = discriminator;
+            }
+        }
+
         return this.toRefObject(operation, name, produces);
     }
 
     private toRefObject(operation: AsyncOperationOptions, name: string, produces: string[]): AsyncOperationObject {
         const asyncOperationObject = omit(operation, 'examples');
-        let messageExamples = undefined;
-        if (operation.message.examples) {
-            messageExamples = Object.values(operation.message.examples).map(e => e.value);
-        }
 
         return {
             ...asyncOperationObject,
@@ -31,7 +36,7 @@ export class OperationObjectFactory {
                 name: operation.message.name,
                 payload: {
                     $ref: getSchemaPath(name),
-                    examples: messageExamples,
+                    examples: operation.message.payload.examples,
                 },
             },
         };

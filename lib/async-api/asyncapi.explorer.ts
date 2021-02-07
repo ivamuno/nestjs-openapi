@@ -39,10 +39,6 @@ export class AsyncApiExplorer {
         return this.generateDenormalizedDocument(metatype as Type<unknown>, prototype, instance, documentResolvers, modulePath, globalPrefix);
     }
 
-    private getOperationId(instance: object, method: Function): string {
-        return this.operationIdFactory(instance.constructor?.name || '', method.name);
-    }
-
     public getSchemas(): SchemaObject[] {
         return this.schemas;
     }
@@ -52,16 +48,16 @@ export class AsyncApiExplorer {
         prototype: Type<unknown>,
         instance: object,
         documentResolvers: DenormalizedDocResolvers,
-        modulePath?: string,
-        globalPrefix?: string
+        _modulePath?: string,
+        _globalPrefix?: string
     ): DenormalizedDoc[] {
         const denormalizedChannels = this.metadataScanner.scanFromPrototype<any, DenormalizedDoc>(instance, prototype, name => {
             const targetCallback = prototype[name];
-            const methodMetadata = documentResolvers.root.reduce((metadata, fn) => {
+            const methodMetadata = documentResolvers.root.reduce((_metadata, fn) => {
                 const channelMetadata = fn(metatype);
                 return {
                     root: Object.assign(channelMetadata, { name: channelMetadata.name }),
-                    operations: documentResolvers.operations.reduce((metadata, fn2) => {
+                    operations: documentResolvers.operations.reduce((_metadata, fn2) => {
                         return fn2(this.schemas, this.schemaRefsStack, instance, prototype, targetCallback);
                     }, {}),
                 };

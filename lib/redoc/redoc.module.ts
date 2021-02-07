@@ -2,10 +2,10 @@ import { HttpServer, INestApplication } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 const expressAuth = require('express-basic-auth');
-import handlebars from 'express-handlebars';
-import { join } from 'path';
+const Handlebars = require('handlebars');
 import { resolve } from 'url';
 import { LogoOptions, RedocDocument, RedocOptions } from './interfaces';
+import { redocHandlebars } from './views/redocHandlebars';
 
 export class RedocModule {
   /**
@@ -22,6 +22,22 @@ export class RedocModule {
     options: RedocOptions
   ): Promise<void> {
     // Validate options object
+    const defaultOption: RedocOptions = {
+      untrustedSpec: false,
+      supressWarnings: true,
+      hideHostname: false,
+      requiredPropsFirst: true,
+      sortPropsAlphabetically: false,
+      showExtensions: false,
+      noAutoAuth: true,
+      pathInMiddlePanel: false,
+      hideLoading: false,
+      nativeScrollbars: false,
+      hideDownloadButton: false,
+      disableSearch: false,
+      onlyRequiredInSamples: false
+    };
+    options = { ...defaultOption, ...options };
     try {
       const redocDocument = this.addVendorExtensions(
         options,
@@ -75,12 +91,8 @@ export class RedocModule {
     // Serve swagger spec in another URL appended to the normalized path
     const docUrl = resolve(resolvedPath, `${options.docName}.json`);
     // create helper to convert metadata to JSON
-    const hbs = handlebars.create({
-      helpers: {
-        toJSON: function (object: any) {
-          return JSON.stringify(object);
-        },
-      },
+    Handlebars.registerHelper('toJSON', function (object: any) {
+      return JSON.stringify(object);
     });
     // spread redoc options
     const { title, favicon, theme, ...otherOptions } = options;
@@ -98,15 +110,9 @@ export class RedocModule {
         }),
       },
     };
-    // this is our handlebars file path
-    const redocFilePath = join(
-      __dirname,
-      '..',
-      'views',
-      'redoc.handlebars'
-    );
+
     // get handlebars rendered HTML
-    const redocHTML = await hbs.render(redocFilePath, renderData);
+    const redocHTML = Handlebars.compile(redocHandlebars)(renderData);
     // Serve ReDoc Frontend
     httpAdapter.get(finalPath, async (req: Request, res: Response) => {
       const sendPage = () => {

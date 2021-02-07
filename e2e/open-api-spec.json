@@ -55,6 +55,17 @@
           "two"
         ]
       },
+      "BreadCoonDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
       "LettersEnum": {
         "type": "string",
         "enum": [
@@ -87,7 +98,26 @@
             "maximum": 200
           },
           "_breed": {
-            "type": "string"
+            "discriminator": {
+              "propertyName": "name",
+              "mapping": {
+                "MaineCoonDto": "#/components/schemas/MaineCoonDto",
+                "BritishShorthairCatDto": "#/components/schemas/BritishShorthairCatDto"
+              }
+            },
+            "allOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            ]
           },
           "tags": {
             "type": "array",
@@ -180,7 +210,7 @@
             "description": "The age of the Cat"
           },
           "breed": {
-            "type": "string",
+            "type": "object",
             "example": "Maine Coon",
             "description": "The breed of the Cat"
           },
@@ -242,6 +272,34 @@
           "enum",
           "enumArr"
         ]
+      },
+      "MaineCoonDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "BritishShorthairCatDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "height": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name"
+        ]
       }
     }
   },
@@ -286,7 +344,26 @@
                     "maximum": 200
                   },
                   "_breed": {
-                    "type": "string"
+                    "discriminator": {
+                      "propertyName": "name",
+                      "mapping": {
+                        "MaineCoonDto": "#/components/schemas/MaineCoonDto",
+                        "BritishShorthairCatDto": "#/components/schemas/BritishShorthairCatDto"
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name"
+                        ]
+                      }
+                    ]
                   },
                   "tags": {
                     "type": "array",
@@ -365,9 +442,22 @@
                 ]
               },
               "examples": {
-                "Simple": {
+                "MyCat": {
                   "value": {
-                    "name": "Tobi"
+                    "name": "Yuumi",
+                    "breed": {
+                      "name": "British Shorthair",
+                      "height": 99
+                    }
+                  }
+                },
+                "AnotherCat": {
+                  "value": {
+                    "name": "Kitty",
+                    "breed": {
+                      "name": "Maine Coon",
+                      "weight": 10
+                    }
                   }
                 }
               }
@@ -394,7 +484,7 @@
                       "description": "The age of the Cat"
                     },
                     "breed": {
-                      "type": "string",
+                      "type": "object",
                       "example": "Maine Coon",
                       "description": "The breed of the Cat"
                     },
@@ -632,7 +722,7 @@
                       "description": "The age of the Cat"
                     },
                     "breed": {
-                      "type": "string",
+                      "type": "object",
                       "example": "Maine Coon",
                       "description": "The breed of the Cat"
                     },
@@ -926,7 +1016,26 @@
                     "maximum": 200
                   },
                   "_breed": {
-                    "type": "string"
+                    "discriminator": {
+                      "propertyName": "name",
+                      "mapping": {
+                        "MaineCoonDto": "#/components/schemas/MaineCoonDto",
+                        "BritishShorthairCatDto": "#/components/schemas/BritishShorthairCatDto"
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name"
+                        ]
+                      }
+                    ]
                   },
                   "tags": {
                     "type": "array",
@@ -1027,7 +1136,7 @@
                       "description": "The age of the Cat"
                     },
                     "breed": {
-                      "type": "string",
+                      "type": "object",
                       "example": "Maine Coon",
                       "description": "The breed of the Cat"
                     },

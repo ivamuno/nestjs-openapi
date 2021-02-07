@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+export const redocHandlebars = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -43,4 +43,4 @@
   </script>
 </body>
 
-</html>
+</html>`;

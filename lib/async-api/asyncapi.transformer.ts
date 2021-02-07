@@ -1,11 +1,10 @@
-import { debounce, filter, flatten, groupBy, keyBy, mapValues, omit } from 'lodash';
-import { AsyncAPIObject, AsyncChannelObject, AsyncChannelsObject } from '.';
+import { AsyncChannelObject, AsyncChannelsObject } from '.';
 import { DenormalizedDoc } from './interfaces/denormalized-doc.interface';
 
 export class AsyncapiTransformer {
     public normalizeChannels(denormalizedDocs: DenormalizedDoc[]): Record<'channels', AsyncChannelsObject> {
         const flatChannels = denormalizedDocs.map((d: DenormalizedDoc) => {
-            const key = d.root.name;            
+            const key = d.root.name;
             const value = {
                 description: d.root.description,
                 bindings: d.root.bindings,

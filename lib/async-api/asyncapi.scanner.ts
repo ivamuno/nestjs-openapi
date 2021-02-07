@@ -6,15 +6,21 @@ import { Module } from '@nestjs/core/injector/module';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { stripLastSlash } from '@nestjs/swagger/dist/utils/strip-last-slash.util';
 import { extend, flatten, isEmpty, reduce } from 'lodash';
+import { SchemaObjectFactory } from '@nestjs/swagger/dist/services/schema-object-factory';
 
 import { AsyncApiExplorer, AsyncAPIObject } from '.';
 import { AsyncApiDocumentOptions } from './asyncapi.module';
 import { AsyncapiTransformer } from './asyncapi.transformer';
 import { DenormalizedDoc } from './interfaces/denormalized-doc.interface';
+import { ModelPropertiesAccessor } from '@nestjs/swagger/dist/services/model-properties-accessor';
+import { SwaggerTypesMapper } from '@nestjs/swagger/dist/services/swagger-types-mapper';
 
 export class AsyncapiScanner {
     private readonly transfomer = new AsyncapiTransformer();
     private readonly explorer = new AsyncApiExplorer();
+    private readonly modelPropertiesAccessor = new ModelPropertiesAccessor();
+    private readonly swaggerTypesMapper = new SwaggerTypesMapper();
+    private readonly schemaObjectFactory = new SchemaObjectFactory(this.modelPropertiesAccessor, this.swaggerTypesMapper);
 
     public scanApplication(app: INestApplication, options: AsyncApiDocumentOptions): Omit<AsyncAPIObject, 'asyncapi' | 'info'> {
         const { deepScanRoutes, include: includedModules = [], extraModels = [], ignoreGlobalPrefix = false, operationIdFactory } = options;
@@ -42,8 +48,10 @@ export class AsyncapiScanner {
             return this.scanModuleComponents(allComponents, path, globalPrefix, operationIdFactory);
         });
 
+        const schemas = this.explorer.getSchemas();
+        this.addExtraModels(schemas, extraModels);
         var normalizedChannels = this.transfomer.normalizeChannels(flatten(denormalizedChannels));
-        var components = { schemas: reduce(this.explorer.getSchemas(), extend) as Record<string, SchemaObject> };
+        var components = { schemas: reduce(schemas, extend) as Record<string, SchemaObject> };
         return {
             ...normalizedChannels,
             components: components,
@@ -74,4 +82,10 @@ export class AsyncapiScanner {
         const internalConfigRef = (app as any).config;
         return (internalConfigRef && internalConfigRef.getGlobalPrefix()) || '';
     }
+
+    private addExtraModels(schemas: SchemaObject[], extraModels: Function[]) {
+        extraModels.forEach((item) => {
+          this.schemaObjectFactory.exploreModelSchema(item, schemas);
+        });
+      }
 }
