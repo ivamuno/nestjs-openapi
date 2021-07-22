@@ -8,12 +8,12 @@ export interface KafkaServerBindingObject {}
 export interface KafkaChannelBindingObject {}
 
 export interface KafkaOperationBindingObject {
-    groupId?: SchemaObject;
-    clientId?: SchemaObject;
-    bindingVersion?: string;
+  groupId?: SchemaObject;
+  clientId?: SchemaObject;
+  bindingVersion?: string;
 }
 
 export interface KafkaMessageBindingObject {
-    key?: SchemaObject;
-    bindingVersion?: string;
+  key?: SchemaObject;
+  bindingVersion?: string;
 }

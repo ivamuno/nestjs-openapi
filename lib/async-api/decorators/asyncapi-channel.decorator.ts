@@ -8,13 +8,13 @@ export declare const CHANNEL_NAME = 'name';
 export declare const CHANNEL_DESCRIPTION = 'description';
 
 export interface AsyncChannelOptions {
-    name: string;
-    description?: string;
-    bindings?: Record<string, KafkaChannelBindingObject | AmqpChannelBindingObject>;
+  name: string;
+  description?: string;
+  bindings?: Record<string, KafkaChannelBindingObject | AmqpChannelBindingObject>;
 }
 
 export declare type Channel = object;
 
 export function AsyncApiChannel(options: AsyncChannelOptions) {
-    return createMixedDecorator(DECORATORS.ASYNCAPI_CHANNEL, options);
+  return createMixedDecorator(DECORATORS.ASYNCAPI_CHANNEL, options);
 }

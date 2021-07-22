@@ -9,37 +9,34 @@ import { AsyncOperationObject } from '..';
 import { AsyncOperationOptions } from '../decorators';
 
 export class OperationObjectFactory {
-    private readonly modelPropertiesAccessor = new ModelPropertiesAccessor();
-    private readonly swaggerTypesMapper = new SwaggerTypesMapper();
-    private readonly schemaObjectFactory = new SchemaObjectFactory(this.modelPropertiesAccessor, this.swaggerTypesMapper);
+  private readonly modelPropertiesAccessor = new ModelPropertiesAccessor();
+  private readonly swaggerTypesMapper = new SwaggerTypesMapper();
+  private readonly schemaObjectFactory = new SchemaObjectFactory(this.modelPropertiesAccessor, this.swaggerTypesMapper);
 
-    create(operation: AsyncOperationOptions, produces: string[], schemas: SchemaObject[]): AsyncOperationObject {
-        const { message } = operation as AsyncOperationOptions;
-        const messagePayloadType = message.payload.type as Function;
-        const name = this.schemaObjectFactory.exploreModelSchema(messagePayloadType, schemas);
-        const discriminator = operation.message.payload.discriminator;
-        if (operation.message.payload.discriminator) {
-            const schema = schemas.find(s => s[name] !== undefined);
-            if (schema) {
-                schema[name].discriminator = discriminator;
-            }
-        }
-
-        return this.toRefObject(operation, name, produces);
+  create(operation: AsyncOperationOptions, produces: string[], schemas: SchemaObject[]): AsyncOperationObject {
+    const { message } = operation as AsyncOperationOptions;
+    const messagePayloadType = message.payload.type as Function;
+    const name = this.schemaObjectFactory.exploreModelSchema(messagePayloadType, schemas);
+    const discriminator = operation.message.payload.discriminator;
+    if (operation.message.payload.discriminator) {
+      schemas.filter(s => s[name] !== undefined).map(s => (s[name].discriminator = discriminator));
     }
 
-    private toRefObject(operation: AsyncOperationOptions, name: string, produces: string[]): AsyncOperationObject {
-        const asyncOperationObject = omit(operation, 'examples');
+    return this.toRefObject(operation, name, produces);
+  }
 
-        return {
-            ...asyncOperationObject,
-            message: {
-                name: operation.message.name,
-                payload: {
-                    $ref: getSchemaPath(name),
-                    examples: operation.message.payload.examples,
-                },
-            },
-        };
-    }
+  private toRefObject(operation: AsyncOperationOptions, name: string, produces: string[]): AsyncOperationObject {
+    const asyncOperationObject = omit(operation, 'examples');
+
+    return {
+      ...asyncOperationObject,
+      message: {
+        name: operation.message.name,
+        payload: {
+          $ref: getSchemaPath(name),
+          examples: operation.message.payload.examples,
+        },
+      },
+    };
+  }
 }

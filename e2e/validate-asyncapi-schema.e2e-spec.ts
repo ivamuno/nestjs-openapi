@@ -1,11 +1,12 @@
 import { NestFactory } from '@nestjs/core';
-import { ApplicationModule } from './src/app.module';
-
-import { AsyncApiDocumentBuilder, AsyncApiModule, AsyncAPIObject, AsyncServerObject } from '../lib';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+
+import { AsyncAPIObject, AsyncApiDocumentBuilder, AsyncApiModule, AsyncServerObject } from '../lib';
+
+import { ApplicationModule } from './src/app.module';
+import { CreateCatReplyErrorCommand, CreateCatReplySuccessCommand } from './src/cats/async/messages';
 import { BritishShorthairCatDto, MaineCoonDto } from './src/cats/dto/bread-cat.dto';
-import { CreateCatReplySuccessCommand, CreateCatReplyErrorCommand } from './src/cats/async/messages';
 
 describe('Validate AsyncApi schema', () => {
   let document: AsyncAPIObject;
@@ -30,7 +31,7 @@ describe('Validate AsyncApi schema', () => {
         }
       },
       bindings: {
-        'amqp': {}
+        amqp: {}
       }
     };
 
@@ -38,7 +39,7 @@ describe('Validate AsyncApi schema', () => {
       .setTitle('Cats example')
       .setDescription('The cats API description')
       .setVersion('1.0')
-      .addTag('cats')
+      .addTag('cats', 'Everything about your cats.')
       .setDefaultContentType('application/json')
       .addSecurity('user-password', { type: 'userPassword' })
       .addServer('cats-server', server)

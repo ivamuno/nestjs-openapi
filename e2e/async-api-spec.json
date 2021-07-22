@@ -1,610 +1,646 @@
 {
-  "asyncapi": "2.0.0",
-  "info": {
-    "title": "Cats example",
-    "description": "The cats API description",
-    "version": "1.0",
-    "contact": {}
+  "asyncapi":"2.0.0",
+  "info":{
+     "title":"Cats example",
+     "description":"The cats API description",
+     "version":"1.0",
+     "contact":{
+        
+     }
   },
-  "tags": [
-    {
-      "name": "cats",
-      "description": "Everything about your cats."
-    }
+  "tags":[
+     {
+        "name":"cats",
+        "description":"Everything about your cats."
+     }
   ],
-  "servers": {
-    "cats-server": {
-      "url": "server.p-url:{port}",
-      "protocol": "amqp",
-      "protocolVersion": "0.9.1",
-      "description": "Allows you to connect using the AMQP protocol to our RabbitMQ server.",
-      "security": [
-        {
-          "user-password": []
+  "servers":{
+     "cats-server":{
+        "url":"server.p-url:{port}",
+        "protocol":"amqp",
+        "protocolVersion":"0.9.1",
+        "description":"Allows you to connect using the AMQP protocol to our RabbitMQ server.",
+        "security":[
+           {
+              "user-password":[
+                 
+              ]
+           }
+        ],
+        "variables":{
+           "port":{
+              "description":"Secure connection (TLS) is available through port 5672.",
+              "default":"5672",
+              "enum":[
+                 "5672"
+              ]
+           }
+        },
+        "bindings":{
+           "amqp":{
+              
+           }
         }
-      ],
-      "variables": {
-        "port": {
-          "description": "Secure connection (TLS) is available through port 5672.",
-          "default": "5672",
-          "enum": [
-            "5672"
-          ]
-        }
-      },
-      "bindings": {
-        "amqp": {}
-      }
-    }
+     }
   },
-  "components": {
-    "securitySchemes": {
-      "user-password": {
-        "type": "userPassword"
-      }
-    },
-    "schemas": {
-      "CreateCatReplyCommand": {
-        "type": "object",
-        "properties": {
-          "correlationId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a flow"
-          },
-          "messageId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a request"
-          },
-          "messageType": {
-            "type": "string",
-            "description": "Type of message"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "version": {
-            "type": "string",
-            "format": "X.Y.Z",
-            "description": "Message Version"
-          },
-          "payload": {
-            "type": "object",
-            "description": "Message payload"
-          }
-        },
-        "required": [
-          "correlationId",
-          "messageId",
-          "messageType",
-          "timestamp",
-          "version",
-          "payload"
-        ],
-        "discriminator": {
-          "propertyName": "messageType",
-          "mapping": {
-            "CreateCatReplySuccessCommand": "#/components/schemas/CreateCatReplySuccessCommand",
-            "CreateCatReplyErrorCommand": "#/components/schemas/CreateCatReplyErrorCommand"
-          }
+  "components":{
+     "securitySchemes":{
+        "user-password":{
+           "type":"userPassword"
         }
-      },
-      "CreateCatCommand": {
-        "type": "object",
-        "properties": {
-          "correlationId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a flow"
-          },
-          "messageId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a request"
-          },
-          "messageType": {
-            "type": "string",
-            "description": "Type of message"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "version": {
-            "type": "string",
-            "format": "X.Y.Z",
-            "description": "Message Version"
-          },
-          "payload": {
-            "type": "object",
-            "description": "Message payload"
-          }
-        },
-        "required": [
-          "correlationId",
-          "messageId",
-          "messageType",
-          "timestamp",
-          "version",
-          "payload"
-        ]
-      },
-      "ExtraModel": {
-        "type": "object",
-        "properties": {
-          "one": {
-            "type": "string"
-          },
-          "two": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "one",
-          "two"
-        ]
-      },
-      "BreadCoonDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "LettersEnum": {
-        "type": "string",
-        "enum": [
-          "A",
-          "B",
-          "C"
-        ]
-      },
-      "TagDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "name"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "CreateCatDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "age": {
-            "type": "number",
-            "minimum": 1,
-            "maximum": 200
-          },
-          "_breed": {
-            "discriminator": {
-              "propertyName": "name",
-              "mapping": {
-                "MaineCoonDto": "#/components/schemas/MaineCoonDto",
-                "BritishShorthairCatDto": "#/components/schemas/BritishShorthairCatDto"
+     },
+     "schemas":{
+        "CreateCatReplyCommand":{
+           "type":"object",
+           "properties":{
+              "correlationId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a flow"
+              },
+              "messageId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a request"
+              },
+              "messageType":{
+                 "type":"string",
+                 "description":"Type of message"
+              },
+              "timestamp":{
+                 "type":"string",
+                 "format":"date-time"
+              },
+              "version":{
+                 "type":"string",
+                 "format":"X.Y.Z",
+                 "description":"Message Version"
+              },
+              "payload":{
+                 "type":"object",
+                 "description":"Message payload"
               }
-            },
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/BreadCoonDto"
+           },
+           "required":[
+              "correlationId",
+              "messageId",
+              "messageType",
+              "timestamp",
+              "version",
+              "payload"
+           ],
+           "discriminator":{
+              "propertyName":"messageType",
+              "mapping":{
+                 "CreateCatReplySuccessCommand":"#/components/schemas/CreateCatReplySuccessCommand",
+                 "CreateCatReplyErrorCommand":"#/components/schemas/CreateCatReplyErrorCommand"
               }
-            ]
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "createdAt": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "urls": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "options": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "isReadonly": {
-                  "type": "string"
-                }
+           }
+        },
+        "CreateCatCommand":{
+           "type":"object",
+           "properties":{
+              "correlationId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a flow"
+              },
+              "messageId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a request"
+              },
+              "messageType":{
+                 "type":"string",
+                 "description":"Type of message"
+              },
+              "timestamp":{
+                 "type":"string",
+                 "format":"date-time"
+              },
+              "version":{
+                 "type":"string",
+                 "format":"X.Y.Z",
+                 "description":"Message Version"
+              },
+              "payload":{
+                 "type":"object",
+                 "description":"Message payload"
               }
-            }
-          },
-          "enum": {
-            "$ref": "#/components/schemas/LettersEnum"
-          },
-          "enumArr": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LettersEnum"
-            }
-          },
-          "tag": {
-            "description": "tag",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/TagDto"
+           },
+           "required":[
+              "correlationId",
+              "messageId",
+              "messageType",
+              "timestamp",
+              "version",
+              "payload"
+           ]
+        },
+        "ExtraModel":{
+           "type":"object",
+           "properties":{
+              "one":{
+                 "type":"string"
+              },
+              "two":{
+                 "type":"number"
               }
-            ]
-          }
+           },
+           "required":[
+              "one",
+              "two"
+           ]
         },
-        "required": [
-          "name",
-          "age",
-          "_breed",
-          "tags",
-          "createdAt",
-          "urls",
-          "options",
-          "enum",
-          "enumArr"
-        ]
-      },
-      "CatCreatedEvent": {
-        "type": "object",
-        "properties": {
-          "correlationId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a flow"
-          },
-          "messageId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a request"
-          },
-          "messageType": {
-            "type": "string",
-            "description": "Type of message"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "version": {
-            "type": "string",
-            "format": "X.Y.Z",
-            "description": "Message Version"
-          },
-          "payload": {
-            "description": "Message payload",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CreateCatDto"
+        "BreadCoonDto":{
+           "type":"object",
+           "properties":{
+              "name":{
+                 "type":"string"
               }
-            ]
-          }
+           },
+           "required":[
+              "name"
+           ]
         },
-        "required": [
-          "correlationId",
-          "messageId",
-          "messageType",
-          "timestamp",
-          "version",
-          "payload"
-        ]
-      },
-      "MaineCoonDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "weight": {
-            "type": "number"
-          }
+        "LettersEnum":{
+           "type":"string",
+           "enum":[
+              "A",
+              "B",
+              "C"
+           ]
         },
-        "required": [
-          "name"
-        ]
-      },
-      "BritishShorthairCatDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "height": {
-            "type": "number"
-          }
+        "TagDto":{
+           "type":"object",
+           "properties":{
+              "name":{
+                 "type":"string",
+                 "description":"name"
+              }
+           },
+           "required":[
+              "name"
+           ]
         },
-        "required": [
-          "name"
-        ]
-      },
-      "CreateCatReplySuccessCommand": {
-        "type": "object",
-        "properties": {
-          "correlationId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a flow"
-          },
-          "messageId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a request"
-          },
-          "messageType": {
-            "type": "string",
-            "description": "Type of message"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "version": {
-            "type": "string",
-            "format": "X.Y.Z",
-            "description": "Message Version"
-          },
-          "payload": {
-            "type": "object",
-            "description": "Message payload"
-          }
+        "CreateCatDto":{
+           "type":"object",
+           "properties":{
+              "name":{
+                 "type":"string"
+              },
+              "age":{
+                 "type":"number",
+                 "minimum":1,
+                 "maximum":200
+              },
+              "_breed":{
+                 "discriminator":{
+                    "propertyName":"name",
+                    "mapping":{
+                       "MaineCoonDto":"#/components/schemas/MaineCoonDto",
+                       "BritishShorthairCatDto":"#/components/schemas/BritishShorthairCatDto"
+                    }
+                 },
+                 "allOf":[
+                    {
+                       "$ref":"#/components/schemas/BreadCoonDto"
+                    }
+                 ]
+              },
+              "tags":{
+                 "type":"array",
+                 "items":{
+                    "type":"string"
+                 }
+              },
+              "createdAt":{
+                 "format":"date-time",
+                 "type":"string"
+              },
+              "urls":{
+                 "type":"array",
+                 "items":{
+                    "type":"string"
+                 }
+              },
+              "options":{
+                 "type":"array",
+                 "items":{
+                    "type":"object",
+                    "properties":{
+                       "isReadonly":{
+                          "type":"string"
+                       }
+                    }
+                 }
+              },
+              "enum":{
+                 "$ref":"#/components/schemas/LettersEnum"
+              },
+              "enumArr":{
+                 "type":"array",
+                 "items":{
+                    "$ref":"#/components/schemas/LettersEnum"
+                 }
+              },
+              "tag":{
+                 "description":"tag",
+                 "allOf":[
+                    {
+                       "$ref":"#/components/schemas/TagDto"
+                    }
+                 ]
+              }
+           },
+           "required":[
+              "name",
+              "age",
+              "_breed",
+              "tags",
+              "createdAt",
+              "urls",
+              "options",
+              "enum",
+              "enumArr"
+           ]
         },
-        "required": [
-          "correlationId",
-          "messageId",
-          "messageType",
-          "timestamp",
-          "version",
-          "payload"
-        ]
-      },
-      "CreateCatReplyErrorCommand": {
-        "type": "object",
-        "properties": {
-          "correlationId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a flow"
-          },
-          "messageId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Identify a request"
-          },
-          "messageType": {
-            "type": "string",
-            "description": "Type of message"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "version": {
-            "type": "string",
-            "format": "X.Y.Z",
-            "description": "Message Version"
-          },
-          "payload": {
-            "type": "object",
-            "description": "Message payload"
-          }
+        "CatCreatedEvent":{
+           "type":"object",
+           "properties":{
+              "correlationId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a flow"
+              },
+              "messageId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a request"
+              },
+              "messageType":{
+                 "type":"string",
+                 "description":"Type of message"
+              },
+              "timestamp":{
+                 "type":"string",
+                 "format":"date-time"
+              },
+              "version":{
+                 "type":"string",
+                 "format":"X.Y.Z",
+                 "description":"Message Version"
+              },
+              "payload":{
+                 "description":"Message payload",
+                 "allOf":[
+                    {
+                       "$ref":"#/components/schemas/CreateCatDto"
+                    }
+                 ]
+              }
+           },
+           "required":[
+              "correlationId",
+              "messageId",
+              "messageType",
+              "timestamp",
+              "version",
+              "payload"
+           ]
         },
-        "required": [
-          "correlationId",
-          "messageId",
-          "messageType",
-          "timestamp",
-          "version",
-          "payload"
-        ]
-      }
-    }
+        "MaineCoonDto":{
+           "type":"object",
+           "properties":{
+              "name":{
+                 "type":"string"
+              },
+              "weight":{
+                 "type":"number"
+              }
+           },
+           "required":[
+              "name"
+           ]
+        },
+        "BritishShorthairCatDto":{
+           "type":"object",
+           "properties":{
+              "name":{
+                 "type":"string"
+              },
+              "height":{
+                 "type":"number"
+              }
+           },
+           "required":[
+              "name"
+           ]
+        },
+        "CreateCatReplySuccessCommand":{
+           "type":"object",
+           "properties":{
+              "correlationId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a flow"
+              },
+              "messageId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a request"
+              },
+              "messageType":{
+                 "type":"string",
+                 "description":"Type of message"
+              },
+              "timestamp":{
+                 "type":"string",
+                 "format":"date-time"
+              },
+              "version":{
+                 "type":"string",
+                 "format":"X.Y.Z",
+                 "description":"Message Version"
+              },
+              "payload":{
+                 "type":"object",
+                 "description":"Message payload"
+              }
+           },
+           "required":[
+              "correlationId",
+              "messageId",
+              "messageType",
+              "timestamp",
+              "version",
+              "payload"
+           ]
+        },
+        "CreateCatReplyErrorCommand":{
+           "type":"object",
+           "properties":{
+              "correlationId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a flow"
+              },
+              "messageId":{
+                 "type":"string",
+                 "format":"uuid",
+                 "description":"Identify a request"
+              },
+              "messageType":{
+                 "type":"string",
+                 "description":"Type of message"
+              },
+              "timestamp":{
+                 "type":"string",
+                 "format":"date-time"
+              },
+              "version":{
+                 "type":"string",
+                 "format":"X.Y.Z",
+                 "description":"Message Version"
+              },
+              "payload":{
+                 "type":"object",
+                 "description":"Message payload"
+              }
+           },
+           "required":[
+              "correlationId",
+              "messageId",
+              "messageType",
+              "timestamp",
+              "version",
+              "payload"
+           ]
+        }
+     }
   },
-  "defaultContentType": "application/json",
-  "channels": {
-    "cats-pub-channel:cat-routing-key": {
-      "bindings": {
-        "amqp": {
-          "is": "routingKey",
-          "exchange": {
-            "name": "cats-pub-channel",
-            "durable": true,
-            "autoDelete": false,
-            "vhost": "cats"
-          }
-        }
-      },
-      "publish": {
-        "tags": [
-          {
-            "name": "Cats RPC"
-          }
-        ],
-        "summary": "Create Cat Response",
-        "description": "Description for Create Cat Response operation",
-        "message": {
-          "name": "Create Cat Reply Command",
-          "payload": {
-            "$ref": "#/components/schemas/CreateCatReplyCommand",
-            "examples": {
-              "CreateCatReplySuccessCommand": {
-                "value": {
-                  "correlationId": "53312466-e448-432d-8149-29269b5ac522",
-                  "messageId": "309881db-1971-4c63-b905-9ffb7229f979",
-                  "messageType": "CreateCatReplySuccessCommand",
-                  "timestamp": "2020-12-17T03:29:00",
-                  "version": "1.0.1",
-                  "payload": {
-                    "identifier": "pet_001"
-                  }
-                }
-              },
-              "CreateCatReplyErrorCommand": {
-                "value": {
-                  "correlationId": "77baeaec-9416-437f-a88f-6a3686ff3a4a",
-                  "messageId": "b26f52c0-9a15-41ed-a4df-68e332203737",
-                  "messageType": "CreateCatReplyErrorCommand",
-                  "timestamp": "2020-12-21T03:31:00",
-                  "version": "1.0.1",
-                  "payload": {
-                    "errorCode": "500",
-                    "errorMessage": "Bad Request"
-                  }
-                }
+  "defaultContentType":"application/json",
+  "channels":{
+     "cats-pub-channel:cat-routing-key":{
+        "bindings":{
+           "amqp":{
+              "is":"routingKey",
+              "exchange":{
+                 "name":"cats-pub-channel",
+                 "durable":true,
+                 "autoDelete":false,
+                 "vhost":"cats"
               }
-            }
-          }
+           }
         },
-        "bindings": {
-          "amqp": {
-            "deliveryMode": 2,
-            "mandatory": true,
-            "timestamp": true,
-            "ack": false
-          }
-        }
-      }
-    },
-    "cats-sub-channel": {
-      "bindings": {
-        "amqp": {
-          "is": "queue",
-          "queue": {
-            "name": "cats-sub-channel",
-            "durable": true,
-            "exclusive": true,
-            "autoDelete": false,
-            "vhost": "cats"
-          }
-        }
-      },
-      "subscribe": {
-        "tags": [
-          {
-            "name": "Cats RPC"
-          }
-        ],
-        "summary": "Create Cat Request",
-        "description": "Description for Create Cat Request operation",
-        "message": {
-          "name": "Create Cat Command",
-          "payload": {
-            "$ref": "#/components/schemas/CreateCatCommand",
-            "examples": {
-              "British": {
-                "value": {
-                  "correlationId": "53312466-e448-432d-8149-29269b5ac522",
-                  "messageId": "309881db-1971-4c63-b905-9ffb7229f979",
-                  "messageType": "CreateCatCommand",
-                  "timestamp": "2020-12-17T03:24:00",
-                  "version": "1.0.1",
-                  "payload": {
-                    "name": "Yuumi",
-                    "breed": {
-                      "name": "British Shorthair",
-                      "height": 99
-                    }
-                  }
-                }
-              },
-              "Maine": {
-                "value": {
-                  "correlationId": "77baeaec-9416-437f-a88f-6a3686ff3a4a",
-                  "messageId": "b26f52c0-9a15-41ed-a4df-68e332203737",
-                  "messageType": "CreateCatCommand",
-                  "timestamp": "2020-12-21T03:24:00",
-                  "version": "1.0.1",
-                  "payload": {
-                    "name": "Kitty",
-                    "breed": {
-                      "name": "Maine Coon",
-                      "weight": 10
-                    }
-                  }
-                }
+        "publish":{
+           "tags":[
+              {
+                 "name":"Cats RPC"
               }
-            }
-          }
-        },
-        "bindings": {
-          "amqp": {
-            "deliveryMode": 2,
-            "mandatory": true,
-            "timestamp": true,
-            "ack": false
-          }
-        }
-      }
-    },
-    "cats-pub-events:cat-routing-key": {
-      "bindings": {
-        "kafka": {}
-      },
-      "publish": {
-        "tags": [
-          {
-            "name": "Cats Events"
-          }
-        ],
-        "summary": "Publish Cats Events",
-        "message": {
-          "name": "Cat Event",
-          "payload": {
-            "$ref": "#/components/schemas/CatCreatedEvent",
-            "examples": {
-              "CatCreated": {
-                "value": {
-                  "correlationId": "53312466-e448-432d-8149-29269b5ac522",
-                  "messageType": "CatCreated",
-                  "timestamp": "2020-12-17T03:29:00",
-                  "version": "1.0.1",
-                  "payload": {
-                    "name": "Kitty",
-                    "breed": {
-                      "name": "Maine Coon",
-                      "weight": 10
+           ],
+           "summary":"Create Cat Response",
+           "description":"Description for Create Cat Response operation",
+           "message":{
+              "name":"Create Cat Reply Command",
+              "payload":{
+                 "$ref":"#/components/schemas/CreateCatReplyCommand",
+                 "examples":{
+                    "CreateCatReplySuccessCommand":{
+                       "value":{
+                          "correlationId":"53312466-e448-432d-8149-29269b5ac522",
+                          "messageId":"309881db-1971-4c63-b905-9ffb7229f979",
+                          "messageType":"CreateCatReplySuccessCommand",
+                          "timestamp":"2020-12-17T03:29:00",
+                          "version":"1.0.1",
+                          "payload":{
+                             "identifier":"pet_001"
+                          }
+                       }
                     },
-                    "identifier": "pet_001"
-                  }
-                }
+                    "CreateCatReplyErrorCommand":{
+                       "value":{
+                          "correlationId":"77baeaec-9416-437f-a88f-6a3686ff3a4a",
+                          "messageId":"b26f52c0-9a15-41ed-a4df-68e332203737",
+                          "messageType":"CreateCatReplyErrorCommand",
+                          "timestamp":"2020-12-21T03:31:00",
+                          "version":"1.0.1",
+                          "payload":{
+                             "errorCode":"500",
+                             "errorMessage":"Bad Request"
+                          }
+                       }
+                    }
+                 }
               }
-            }
-          }
-        },
-        "bindings": {
-          "kafka": {
-            "groupId": {
-              "type": "string",
-              "pattern": "^[A-Z]{10}[0-5]$"
-            },
-            "clientId": {
-              "type": "string",
-              "pattern": "^[a-z]{22}$"
-            }
-          }
+           },
+           "bindings":{
+              "amqp":{
+                 "deliveryMode":2,
+                 "mandatory":true,
+                 "timestamp":true,
+                 "ack":false
+              }
+           }
         }
-      }
-    }
-  },
-  "x-tagGroups": [
-    {
-      "name": "pets",
-      "tags": [
-        "cats"
-      ]
-    }
-  ]
+     },
+     "cats-pub-channel2:cat-routing-key":{
+        "bindings":{
+           "amqp":{
+              "is":"routingKey",
+              "exchange":{
+                 "name":"cats-pub-channel2",
+                 "durable":true,
+                 "autoDelete":false,
+                 "vhost":"cats"
+              }
+           }
+        },
+        "publish":{
+           "tags":[
+              {
+                 "name":"Cats RPC"
+              }
+           ],
+           "summary":"Create Cat 2 Response",
+           "description":"Description for Create Cat 2 Response operation",
+           "message":{
+              "name":"Create Cat 2 Reply Command",
+              "payload":{
+                 "$ref":"#/components/schemas/CreateCatReplyCommand"
+              }
+           },
+           "bindings":{
+              "amqp":{
+                 "deliveryMode":2,
+                 "mandatory":true,
+                 "timestamp":true,
+                 "ack":false
+              }
+           }
+        }
+     },
+     "cats-sub-channel":{
+        "bindings":{
+           "amqp":{
+              "is":"queue",
+              "queue":{
+                 "name":"cats-sub-channel",
+                 "durable":true,
+                 "exclusive":true,
+                 "autoDelete":false,
+                 "vhost":"cats"
+              }
+           }
+        },
+        "subscribe":{
+           "tags":[
+              {
+                 "name":"Cats RPC"
+              }
+           ],
+           "summary":"Create Cat Request",
+           "description":"Description for Create Cat Request operation",
+           "message":{
+              "name":"Create Cat Command",
+              "payload":{
+                 "$ref":"#/components/schemas/CreateCatCommand",
+                 "examples":{
+                    "British":{
+                       "value":{
+                          "correlationId":"53312466-e448-432d-8149-29269b5ac522",
+                          "messageId":"309881db-1971-4c63-b905-9ffb7229f979",
+                          "messageType":"CreateCatCommand",
+                          "timestamp":"2020-12-17T03:24:00",
+                          "version":"1.0.1",
+                          "payload":{
+                             "name":"Yuumi",
+                             "breed":{
+                                "name":"British Shorthair",
+                                "height":99
+                             }
+                          }
+                       }
+                    },
+                    "Maine":{
+                       "value":{
+                          "correlationId":"77baeaec-9416-437f-a88f-6a3686ff3a4a",
+                          "messageId":"b26f52c0-9a15-41ed-a4df-68e332203737",
+                          "messageType":"CreateCatCommand",
+                          "timestamp":"2020-12-21T03:24:00",
+                          "version":"1.0.1",
+                          "payload":{
+                             "name":"Kitty",
+                             "breed":{
+                                "name":"Maine Coon",
+                                "weight":10
+                             }
+                          }
+                       }
+                    }
+                 }
+              }
+           },
+           "bindings":{
+              "amqp":{
+                 "deliveryMode":2,
+                 "mandatory":true,
+                 "timestamp":true,
+                 "ack":false
+              }
+           }
+        }
+     },
+     "cats-pub-events:cat-routing-key":{
+        "bindings":{
+           "kafka":{
+              
+           }
+        },
+        "publish":{
+           "tags":[
+              {
+                 "name":"Cats Events"
+              }
+           ],
+           "summary":"Publish Cats Events",
+           "message":{
+              "name":"Cat Event",
+              "payload":{
+                 "$ref":"#/components/schemas/CatCreatedEvent",
+                 "examples":{
+                    "CatCreated":{
+                       "value":{
+                          "correlationId":"53312466-e448-432d-8149-29269b5ac522",
+                          "messageType":"CatCreated",
+                          "timestamp":"2020-12-17T03:29:00",
+                          "version":"1.0.1",
+                          "payload":{
+                             "name":"Kitty",
+                             "breed":{
+                                "name":"Maine Coon",
+                                "weight":10
+                             },
+                             "identifier":"pet_001"
+                          }
+                       }
+                    }
+                 }
+              }
+           },
+           "bindings":{
+              "kafka":{
+                 "groupId":{
+                    "type":"string",
+                    "pattern":"^[A-Z]{10}[0-5]$"
+                 },
+                 "clientId":{
+                    "type":"string",
+                    "pattern":"^[a-z]{22}$"
+                 }
+              }
+           }
+        }
+     }
+  }
 }

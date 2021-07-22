@@ -1,43 +1,43 @@
 import {
-    ApiAcceptedResponse,
-    ApiBadGatewayResponse,
-    ApiBadRequestResponse,
-    ApiConflictResponse,
-    ApiCreatedResponse,
-    ApiDefaultResponse,
-    ApiForbiddenResponse,
-    ApiFoundResponse,
-    ApiGatewayTimeoutResponse,
-    ApiGoneResponse,
-    ApiInternalServerErrorResponse,
-    ApiMethodNotAllowedResponse,
-    ApiMovedPermanentlyResponse,
-    ApiNoContentResponse,
-    ApiNotAcceptableResponse,
-    ApiNotFoundResponse,
-    ApiNotImplementedResponse,
-    ApiOkResponse,
-    ApiPayloadTooLargeResponse,
-    ApiPreconditionFailedResponse,
-    ApiRequestTimeoutResponse,
-    ApiResponse,
-    ApiResponseOptions,
-    ApiServiceUnavailableResponse,
-    ApiTooManyRequestsResponse,
-    ApiUnauthorizedResponse,
-    ApiUnprocessableEntityResponse,
-    ApiUnsupportedMediaTypeResponse,
+  ApiAcceptedResponse,
+  ApiBadGatewayResponse,
+  ApiBadRequestResponse,
+  ApiConflictResponse,
+  ApiCreatedResponse,
+  ApiDefaultResponse,
+  ApiForbiddenResponse,
+  ApiFoundResponse,
+  ApiGatewayTimeoutResponse,
+  ApiGoneResponse,
+  ApiInternalServerErrorResponse,
+  ApiMethodNotAllowedResponse,
+  ApiMovedPermanentlyResponse,
+  ApiNoContentResponse,
+  ApiNotAcceptableResponse,
+  ApiNotFoundResponse,
+  ApiNotImplementedResponse,
+  ApiOkResponse,
+  ApiPayloadTooLargeResponse,
+  ApiPreconditionFailedResponse,
+  ApiRequestTimeoutResponse,
+  ApiResponse,
+  ApiResponseOptions,
+  ApiServiceUnavailableResponse,
+  ApiTooManyRequestsResponse,
+  ApiUnauthorizedResponse,
+  ApiUnprocessableEntityResponse,
+  ApiUnsupportedMediaTypeResponse,
 } from '@nestjs/swagger/dist/decorators/api-response.decorator';
 import { ExamplesObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 export interface ApiResponseOptionsExtra {
-    examples: ExamplesObject;
+  examples: ExamplesObject;
 }
 
 export type OpenApiResponseOptions = ApiResponseOptions & Partial<ApiResponseOptionsExtra>;
 
 export function OpenApiResponse(options: OpenApiResponseOptions): MethodDecorator & ClassDecorator {
-    return ApiResponse(options);
+  return ApiResponse(options);
 }
 
 export const OpenApiOkResponse = (options: OpenApiResponseOptions = {}) => ApiOkResponse(options);
