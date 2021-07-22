@@ -1,9 +1,5 @@
 import { Logger } from '@nestjs/common';
-import {
-    ExternalDocumentationObject,
-    SecuritySchemeObject,
-    TagObject,
-} from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import { ExternalDocumentationObject, SecuritySchemeObject, TagObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { isUndefined, negate, pickBy } from 'lodash';
 
 import { AsyncAPIObject, AsyncSecuritySchemeObject, AsyncServerObject, AsyncServerVariableObject, SecurityObject } from './asyncapi.interfaces';
@@ -55,10 +51,7 @@ export class AsyncApiDocumentBuilder {
         return this;
     }
 
-    public addServer(
-        name: string,
-        server: AsyncServerObject
-    ): this {
+    public addServer(name: string, server: AsyncServerObject): this {
         this.document.servers[name] = server;
         return this;
     }

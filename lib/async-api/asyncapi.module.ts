@@ -8,7 +8,7 @@ import { AsyncAPIObject } from '.';
 import { AsyncapiScanner } from './asyncapi.scanner';
 
 // tslint:disable-next-line: no-empty-interface
-export interface AsyncApiDocumentOptions extends SwaggerDocumentOptions { }
+export interface AsyncApiDocumentOptions extends SwaggerDocumentOptions {}
 
 export class AsyncApiModule {
     public static createDocument(

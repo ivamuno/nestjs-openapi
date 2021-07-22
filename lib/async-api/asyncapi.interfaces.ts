@@ -14,7 +14,7 @@ import {
     KafkaChannelBindingObject,
     KafkaMessageBindingObject,
     KafkaOperationBindingObject,
-    KafkaServerBindingObject
+    KafkaServerBindingObject,
 } from './bindingInterfaces';
 
 export interface AsyncAPIObject {
@@ -50,7 +50,7 @@ export interface AsyncServerObject extends Omit<ServerObject, 'variables'> {
     bindings?: Record<string, KafkaServerBindingObject | AmqpServerBindingObject>;
 }
 
-export interface SecurityObject extends Record<string, string[]> { }
+export interface SecurityObject extends Record<string, string[]> {}
 
 export interface AyncComponentsObject {
     schemas?: Record<string, SchemaObject>;
@@ -160,7 +160,7 @@ export interface DiscriminatorObject {
 }
 
 // tslint:disable-next-line: no-empty-interface
-export interface ParameterObject extends BaseParameterObject { }
+export interface ParameterObject extends BaseParameterObject {}
 
 export interface BaseParameterObject {
     description?: string;

@@ -12,7 +12,7 @@ export interface AsyncOperationOptions extends Omit<AsyncOperationObject, 'messa
             type: Type<unknown> | Function | [Function] | string;
             discriminator?: DiscriminatorObject;
             examples?: Record<string, ExampleObject>;
-        }
+        };
     };
 }
 

@@ -2,12 +2,10 @@
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 // tslint:disable-next-line: no-empty-interface
-export interface KafkaServerBindingObject {
-}
+export interface KafkaServerBindingObject {}
 
 // tslint:disable-next-line: no-empty-interface
-export interface KafkaChannelBindingObject {
-}
+export interface KafkaChannelBindingObject {}
 
 export interface KafkaOperationBindingObject {
     groupId?: SchemaObject;

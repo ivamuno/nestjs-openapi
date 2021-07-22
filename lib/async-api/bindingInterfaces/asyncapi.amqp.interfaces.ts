@@ -1,24 +1,23 @@
 // https://github.com/asyncapi/bindings/tree/master/amqp
 
 // tslint:disable-next-line: no-empty-interface
-export interface AmqpServerBindingObject {
-}
+export interface AmqpServerBindingObject {}
 
 export interface AmqpChannelBindingObject {
     is: string;
     exchange?: {
-        name: string,
-        type: string,
-        durable?: boolean,
-        autoDelete?: boolean,
-        vhost?: string,
+        name: string;
+        type: string;
+        durable?: boolean;
+        autoDelete?: boolean;
+        vhost?: string;
     };
     queue?: {
-        name: string,
-        durable?: boolean,
-        exclusive?: boolean,
-        autoDelete?: boolean,
-        vhost?: string,
+        name: string;
+        durable?: boolean;
+        exclusive?: boolean;
+        autoDelete?: boolean;
+        vhost?: string;
     };
     bindingVersion?: string;
 }

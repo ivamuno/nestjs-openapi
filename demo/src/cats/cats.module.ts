@@ -6,7 +6,7 @@ import { CatsSubChannel } from './cats.sub-channel';
 import { CatsEventsChannel } from './cats.event-channel';
 
 @Module({
-  controllers: [CatsController],
-  providers: [CatsService, CatsPubChannel, CatsSubChannel, CatsEventsChannel]
+    controllers: [CatsController],
+    providers: [CatsService, CatsPubChannel, CatsSubChannel, CatsEventsChannel],
 })
-export class CatsModule { }
+export class CatsModule {}

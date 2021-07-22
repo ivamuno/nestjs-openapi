@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ExtraModel {
-  @ApiProperty()
-  readonly one: string;
+    @ApiProperty()
+    readonly one: string;
 
-  @ApiProperty()
-  readonly two: number;
+    @ApiProperty()
+    readonly two: number;
 }
