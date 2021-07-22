@@ -1,12 +1,12 @@
 {
   "name": "@ivamuno/nestjs-openapi",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start:demo": "cd demo && nest start",
     "build": "tsc -p tsconfig.json && cp package.json ./dist",
-    "publish": "npm run build && npm publish dist --access public",
+    "publish": "npm run build && npm publish ./dist --access public",
     "format": "prettier --write \"{demo,lib,test}/**/*.ts\"",
     "lint": "tslint -p tsconfig.json -c tslint.json --fix",
     "test": "jest",
