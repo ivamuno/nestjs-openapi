@@ -1,11 +1,14 @@
 import { HttpServer, INestApplication } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
-const expressAuth = require('express-basic-auth');
-const Handlebars = require('handlebars');
 import { resolve } from 'url';
+
 import { LogoOptions, RedocDocument, RedocOptions } from './interfaces';
 import { redocHandlebars } from './views/redocHandlebars';
+// tslint:disable-next-line: no-var-requires
+const expressAuth = require('express-basic-auth');
+// tslint:disable-next-line: no-var-requires
+const Handlebars = require('handlebars');
 
 export class RedocModule {
   /**
@@ -41,7 +44,7 @@ export class RedocModule {
     try {
       const redocDocument = this.addVendorExtensions(
         options,
-        <RedocDocument>document
+        document as RedocDocument
       );
       const httpAdapter: HttpServer = app.getHttpAdapter();
       if (
@@ -53,7 +56,7 @@ export class RedocModule {
       }
       return await this.setupExpress(
         path,
-        <NestExpressApplication>app,
+        app as NestExpressApplication,
         redocDocument,
         options
       );
@@ -91,7 +94,7 @@ export class RedocModule {
     // Serve swagger spec in another URL appended to the normalized path
     const docUrl = resolve(resolvedPath, `${options.docName}.json`);
     // create helper to convert metadata to JSON
-    Handlebars.registerHelper('toJSON', function (object: any) {
+    Handlebars.registerHelper('toJSON', (object: any) => {
       return JSON.stringify(object);
     });
     // spread redoc options
@@ -119,7 +122,8 @@ export class RedocModule {
         // Content-Security-Policy: worker-src 'self' blob:
         res.setHeader(
           'Content-Security-Policy',
-          "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; child-src * 'unsafe-inline' 'unsafe-eval' blob:; worker-src * 'unsafe-inline' 'unsafe-eval' blob:; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';"
+          // tslint:disable-next-line: max-line-length
+          'default-src * \'unsafe-inline\' \'unsafe-eval\'; script-src * \'unsafe-inline\' \'unsafe-eval\'; child-src * \'unsafe-inline\' \'unsafe-eval\' blob:; worker-src * \'unsafe-inline\' \'unsafe-eval\' blob:; connect-src * \'unsafe-inline\'; img-src * data: blob: \'unsafe-inline\'; frame-src *; style-src * \'unsafe-inline\';'
         );
         // whoosh
         res.send(redocHTML);

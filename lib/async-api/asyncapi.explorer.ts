@@ -1,11 +1,12 @@
 import { Type } from '@nestjs/common';
+import { MetadataScanner } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+
+import { DECORATORS } from '.';
 import { exploreAsyncapiChannelMetadata, exploreAsyncapiOperationMetadata } from './explorers';
 import { DenormalizedDocResolvers } from './interfaces/denormalized-doc-resolvers.interface';
 import { DenormalizedDoc } from './interfaces/denormalized-doc.interface';
-import { MetadataScanner } from '@nestjs/core';
-import { DECORATORS } from '.';
 
 export class AsyncApiExplorer {
     private readonly metadataScanner = new MetadataScanner();
@@ -57,14 +58,14 @@ export class AsyncApiExplorer {
                 const channelMetadata = fn(metatype);
                 return {
                     root: Object.assign(channelMetadata, { name: channelMetadata.name }),
-                    operations: documentResolvers.operations.reduce((_metadata, fn2) => {
+                    operations: documentResolvers.operations.reduce((_metadata2, fn2) => {
                         return fn2(this.schemas, this.schemaRefsStack, instance, prototype, targetCallback);
                     }, {}),
                 };
             }, {});
             return methodMetadata;
         });
-        
+
         return denormalizedChannels;
     }
 }

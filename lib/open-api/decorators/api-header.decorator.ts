@@ -1,4 +1,4 @@
-import { ApiHeaderOptions, ApiHeader, ApiHeaders } from '@nestjs/swagger/dist/decorators/api-header.decorator';
+import { ApiHeader, ApiHeaderOptions, ApiHeaders } from '@nestjs/swagger/dist/decorators/api-header.decorator';
 
 export function OpenApiHeader(options: ApiHeaderOptions): MethodDecorator & ClassDecorator {
     return ApiHeader(options);

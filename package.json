@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json && cp package.json ./dist",
     "publish": "npm run build && npm publish dist --access public",
     "format": "prettier --write \"{demo,lib,test}/**/*.ts\"",
-    "lint": "eslint \"{demo,lib,test}/**/*.ts\" --fix",
+    "lint": "tslint -p tsconfig.json -c tslint.json --fix",
     "test": "jest",
     "test:dev": "jest --watch",
     "test:e2e": "jest --config e2e/jest-e2e.json"
@@ -37,17 +37,17 @@
     "@types/node": "11.15.0",
     "@typescript-eslint/eslint-plugin": "4.9.0",
     "@typescript-eslint/parser": "4.9.0",
-    "typescript": "4.1.2",
     "eslint": "7.14.0",
     "eslint-config-prettier": "6.15.0",
     "express": "4.17.1",
-    "reflect-metadata": "0.1.13",
-    "ts-jest": "26.4.4",
+    "fs": "0.0.1-security",
     "jest": "26.6.3",
     "lint-staged": "10.5.2",
     "prettier": "2.2.1",
-    "fs": "0.0.1-security",
-    "swagger-parser": "^10.0.2"
+    "reflect-metadata": "0.1.13",
+    "swagger-parser": "^10.0.2",
+    "ts-jest": "26.4.4",
+    "typescript": "4.1.2"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.8.0 || ^7.0.0",

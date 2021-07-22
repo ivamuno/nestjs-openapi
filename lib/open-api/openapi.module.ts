@@ -1,17 +1,18 @@
 import { INestApplication } from '@nestjs/common';
 import { OpenAPIObject, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
 import { ContentObject, OperationObject, PathItemObject, RequestBodyObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+
 import { RedocOptions } from '../redoc/interfaces';
 import { RedocModule } from '../redoc/redoc.module';
 
 export class OpenApiModule {
     public static createDocument(app: INestApplication, config: Omit<OpenAPIObject, 'paths'>, options?: SwaggerDocumentOptions): OpenAPIObject {
-        var document = SwaggerModule.createDocument(app, config, options);
+        const document = SwaggerModule.createDocument(app, config, options);
         Object.keys(document.paths).forEach(pathKey => {
-            let path: PathItemObject = document.paths[pathKey];
+            const path: PathItemObject = document.paths[pathKey];
             Object.keys(path).forEach(operationKey => {
-                let operationMetadata = path[operationKey] as any;
-                let operation = operationMetadata as OperationObject;
+                const operationMetadata = path[operationKey] as any;
+                const operation = operationMetadata as OperationObject;
                 if (operation) {
                     OpenApiModule.mapRequestBodyExamples(operationMetadata, operation);
                     OpenApiModule.mapResponseExamples(operation);
@@ -27,10 +28,10 @@ export class OpenApiModule {
     }
 
     private static mapExamples(metadata: any, target: any) {
-        let requestBodyExamples = metadata.examples;
+        const requestBodyExamples = metadata.examples;
         if (requestBodyExamples) {
             Object.keys(target.content).forEach(contentTypeKey => {
-                let contentType = target.content[contentTypeKey] as ContentObject;
+                const contentType = target.content[contentTypeKey] as ContentObject;
                 contentType.examples = requestBodyExamples;
             });
 
@@ -39,7 +40,7 @@ export class OpenApiModule {
     }
 
     private static mapRequestBodyExamples(operationMetadata: any, operation: OperationObject): void {
-        let requestBody = operation.requestBody as RequestBodyObject;
+        const requestBody = operation.requestBody as RequestBodyObject;
         if (requestBody) {
             OpenApiModule.mapExamples(operationMetadata, requestBody);
         }
@@ -47,7 +48,7 @@ export class OpenApiModule {
 
     private static mapResponseExamples(operation: OperationObject): void {
         Object.keys(operation.responses).forEach(responseKey => {
-            let response = operation.responses[responseKey] as any;
+            const response = operation.responses[responseKey] as any;
             OpenApiModule.mapExamples(response, response);
         });
     }

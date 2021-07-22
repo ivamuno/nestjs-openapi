@@ -1,4 +1,5 @@
 import { OpenAPIObject } from '@nestjs/swagger';
+
 import { LogoOptions, TagGroupOptions } from './redocOptions.interface';
 
 export interface RedocDocument extends Partial<any> {

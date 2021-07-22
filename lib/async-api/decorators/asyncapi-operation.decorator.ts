@@ -1,6 +1,8 @@
 import { Type } from '@nestjs/common';
-import { AsyncOperationObject, DiscriminatorObject, ExampleObject } from '..';
 import { createMixedDecorator } from '@nestjs/swagger/dist/decorators/helpers';
+
+import { AsyncOperationObject, DiscriminatorObject, ExampleObject } from '..';
+
 import { DECORATORS } from './constants';
 
 export interface AsyncOperationOptions extends Omit<AsyncOperationObject, 'message'> {

@@ -1,5 +1,4 @@
 import { ApiOperation, ApiOperationOptions } from '@nestjs/swagger/dist/decorators/api-operation.decorator';
-
 import { ExamplesObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 export interface OpenApiOperationOptionsExtra {

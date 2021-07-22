@@ -1,10 +1,11 @@
 import {
     InfoObject,
+    ReferenceObject,
     SchemaObject,
     ServerObject,
     ServerVariableObject,
-    ReferenceObject,
 } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+
 import {
     AmqpChannelBindingObject,
     AmqpMessageBindingObject,
@@ -158,6 +159,7 @@ export interface DiscriminatorObject {
     mapping?: Record<string, string>;
 }
 
+// tslint:disable-next-line: no-empty-interface
 export interface ParameterObject extends BaseParameterObject { }
 
 export interface BaseParameterObject {

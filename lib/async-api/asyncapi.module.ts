@@ -1,11 +1,13 @@
 import { INestApplication } from '@nestjs/common';
 import { SwaggerDocumentOptions } from '@nestjs/swagger';
 
-import { AsyncAPIObject } from '.';
 import { RedocOptions } from '../redoc/interfaces';
 import { RedocModule } from '../redoc/redoc.module';
+
+import { AsyncAPIObject } from '.';
 import { AsyncapiScanner } from './asyncapi.scanner';
 
+// tslint:disable-next-line: no-empty-interface
 export interface AsyncApiDocumentOptions extends SwaggerDocumentOptions { }
 
 export class AsyncApiModule {

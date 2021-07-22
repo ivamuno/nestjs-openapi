@@ -5,6 +5,7 @@ import {
     TagObject,
 } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { isUndefined, negate, pickBy } from 'lodash';
+
 import { AsyncAPIObject, AsyncSecuritySchemeObject, AsyncServerObject, AsyncServerVariableObject, SecurityObject } from './asyncapi.interfaces';
 
 export class AsyncApiDocumentBuilder {
@@ -19,7 +20,7 @@ export class AsyncApiDocumentBuilder {
         tags: [],
         servers: {},
         components: {},
-    });
+    })
 
     private readonly logger = new Logger(AsyncApiDocumentBuilder.name);
     private readonly document: Omit<AsyncAPIObject, 'channels'> = this.buildDocumentBase();

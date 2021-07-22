@@ -19,6 +19,6 @@ export class AsyncapiTransformer {
             return acc;
         }, {});
 
-        return { channels: channels };
+        return { channels };
     }
 }
